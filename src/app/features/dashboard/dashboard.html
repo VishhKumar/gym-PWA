@@ -1,0 +1,111 @@
+<div class="dashboard-container" *ngIf="userProfile() as profile">
+  <!-- Header Banner -->
+  <header class="dashboard-header">
+    <div>
+      <h1 class="welcome-text">Welcome back, {{ profile.name }} 👋</h1>
+      <p class="goal-tag">Goal: <span class="highlight">{{ profile.goal | titlecase }}</span></p>
+    </div>
+    <a routerLink="/onboarding" class="btn-secondary">Edit Profile</a>
+  </header>
+
+  <!-- Macro Targets Grid -->
+  <section class="macros-section" *ngIf="macroTargets() as macros">
+    <h2 class="section-title">Daily Energy & Macro Targets</h2>
+
+    <div class="macros-grid">
+      <div class="macro-card calories">
+        <span class="macro-label">Target Calories</span>
+        <span class="macro-value">{{ macros.dailyCalories }} <small>kcal</small></span>
+      </div>
+
+      <div class="macro-card protein">
+        <span class="macro-label">Protein</span>
+        <span class="macro-value">{{ macros.proteinGrams }}g</span>
+      </div>
+
+      <div class="macro-card carbs">
+        <span class="macro-label">Carbs</span>
+        <span class="macro-value">{{ macros.carbsGrams }}g</span>
+      </div>
+
+      <div class="macro-card fats">
+        <span class="macro-label">Fats</span>
+        <span class="macro-value">{{ macros.fatsGrams }}g</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Progress Charts Section -->
+  <section class="charts-section">
+    <h2 class="section-title">Weekly Progress Overview</h2>
+
+    <div class="charts-grid">
+      <!-- Calorie Intake Chart -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <h3>🔥 Calorie Intake vs Target</h3>
+          <span class="chart-legend"><span class="legend-dot calories"></span> kcal</span>
+        </div>
+        <div class="chart-container">
+          <div class="chart-bars">
+            <div class="bar-column" *ngFor="let item of weeklyData()">
+              <div class="bar-wrapper">
+                <div class="bar calories-bar" [style.height.%]="getCalorieBarHeight(item.caloriesConsumed)"></div>
+              </div>
+              <span class="bar-label">{{ item.day }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Workout Duration Chart -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <h3>⏱️ Active Workout Time</h3>
+          <span class="chart-legend"><span class="legend-dot workout"></span> mins</span>
+        </div>
+        <div class="chart-container">
+          <div class="chart-bars">
+            <div class="bar-column" *ngFor="let item of weeklyData()">
+              <div class="bar-wrapper">
+                <div class="bar workout-bar" [style.height.%]="getWorkoutBarHeight(item.workoutMinutes)"></div>
+              </div>
+              <span class="bar-label">{{ item.day }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Action Hub -->
+  <section class="actions-section">
+    <h2 class="section-title">Bodycraft Quick Actions</h2>
+
+    <div class="actions-grid">
+      <div class="action-card">
+        <h3>💪 Start Workout Session</h3>
+        <p>Log sets, reps, and track exercise rest intervals.</p>
+        <a routerLink="/workout" class="btn-primary mt-2">Launch Logger</a>
+      </div>
+
+      <div class="action-card">
+        <h3>🥗 Track Daily Nutrition</h3>
+        <p>Log your daily meals, monitor macros, and track hydration.</p>
+        <a routerLink="/nutrition" class="btn-primary mt-2">Log Meals</a>
+      </div>
+
+      <div class="action-card">
+        <h3>🎫 Digital Pass</h3>
+        <p>Scan your QR code for rapid turnstile access at the gym entrance.</p>
+        <a routerLink="/checkin" class="btn-primary mt-2">Open Scanner</a>
+      </div>
+
+      <div class="action-card">
+        <h3>💳 Membership Status</h3>
+        <p>View active plan details, renewals, and member pass.</p>
+        <a routerLink="/membership" class="btn-secondary mt-2">View Membership</a>
+      </div>
+    </div>
+  </section>
+</div>

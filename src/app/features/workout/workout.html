@@ -1,0 +1,129 @@
+<div class="workout-container">
+  <!-- Routine Selector (When No Active Session) -->
+  <div *ngIf="!activeSession()" class="routine-picker">
+    <header class="header">
+      <div>
+        <h1 class="title">Workout Routines</h1>
+        <p class="subtitle">Select a routine or create your own to start tracking</p>
+      </div>
+      <!-- Point #4: Add Routine Button -->
+      <button (click)="openAddRoutineModal()" class="btn-primary">+ Add Routine</button>
+    </header>
+
+    <div class="routines-grid">
+      <div *ngFor="let routine of presetRoutines" class="card routine-card">
+        <h3>{{ routine.name }}</h3>
+        <p class="muscle-group">{{ routine.muscleGroups }}</p>
+        <button (click)="startRoutine(routine)" class="btn-primary mt-4">Start Routine</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Active Workout Logger -->
+  <div *ngIf="activeSession() as session" class="active-workout">
+    <header class="active-header">
+      <div>
+        <h1 class="title">{{ session.routineName }}</h1>
+        <span class="badge">In Progress</span>
+      </div>
+      <div class="header-actions">
+        <!-- Point #4: Add Exercise to Active Session -->
+        <button (click)="openAddExerciseModal()" class="btn-secondary">+ Add Exercise</button>
+        <button (click)="finishWorkout()" class="btn-accent">Finish Workout</button>
+      </div>
+    </header>
+
+    <!-- Rest Timer Overlay -->
+    <div *ngIf="timerActive()" class="timer-banner">
+      <div class="timer-info">
+        <span class="pulse-dot"></span>
+        <span>Rest Interval: <strong>{{ timerSeconds() }}s</strong> remaining</span>
+      </div>
+      <button (click)="dismissTimer()" class="btn-dismiss">Skip Timer</button>
+    </div>
+
+    <!-- Exercise Log Cards -->
+    <div class="exercises-list">
+      <div *ngFor="let exercise of session.exercises; let eIndex = index" class="card exercise-card">
+        <div class="exercise-header">
+          <h3 class="exercise-title">{{ exercise.exerciseName }} <small>({{ exercise.muscleGroup }})</small></h3>
+          <button (click)="addSetToExercise(eIndex)" class="btn-link">+ Add Set</button>
+        </div>
+
+        <div class="sets-table">
+          <div class="table-header">
+            <span>SET</span>
+            <span>KG</span>
+            <span>REPS</span>
+            <span>STATUS</span>
+          </div>
+
+          <div *ngFor="let set of exercise.sets; let sIndex = index" class="table-row">
+            <span class="set-num">#{{ set.setNumber }}</span>
+            <input type="number" [(ngModel)]="set.weightKg" class="num-input" />
+            <input type="number" [(ngModel)]="set.reps" class="num-input" />
+            <button 
+              (click)="toggleSet(eIndex, sIndex)" 
+              [class.completed]="set.completed"
+              class="btn-check">
+              {{ set.completed ? '✓ Logged' : 'Complete' }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Point #4: Create Custom Routine Modal -->
+  <div *ngIf="showAddRoutineModal()" class="modal-backdrop">
+    <div class="modal-card">
+      <h2>Create Custom Routine</h2>
+      <div class="form-group">
+        <label>Routine Name</label>
+        <input type="text" [(ngModel)]="newRoutineName" placeholder="e.g. Chest & Triceps Blast" class="text-input" />
+      </div>
+      <div class="form-group">
+        <label>Target Muscle Group</label>
+        <select [(ngModel)]="newMuscleGroup" class="select-input">
+          <option value="Full Body">Full Body</option>
+          <option value="Upper Body">Upper Body</option>
+          <option value="Lower Body">Lower Body</option>
+          <option value="Push">Push (Chest/Shoulders/Triceps)</option>
+          <option value="Pull">Pull (Back/Biceps)</option>
+          <option value="Legs">Legs & Core</option>
+        </select>
+      </div>
+      <div class="modal-actions">
+        <button (click)="closeAddRoutineModal()" class="btn-secondary">Cancel</button>
+        <button (click)="createCustomRoutine()" class="btn-primary">Create & Start</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Point #4: Add Exercise Modal -->
+  <div *ngIf="showAddExerciseModal()" class="modal-backdrop">
+    <div class="modal-card">
+      <h2>Add Exercise to Routine</h2>
+      <div class="form-group">
+        <label>Exercise Name</label>
+        <input type="text" [(ngModel)]="newExerciseName" placeholder="e.g. Incline Dumbbell Press" class="text-input" />
+      </div>
+      <div class="form-group">
+        <label>Muscle Group</label>
+        <select [(ngModel)]="newExerciseTargetGroup" class="select-input">
+          <option value="Chest">Chest</option>
+          <option value="Back">Back</option>
+          <option value="Shoulders">Shoulders</option>
+          <option value="Biceps">Biceps</option>
+          <option value="Triceps">Triceps</option>
+          <option value="Legs">Legs</option>
+          <option value="Core">Core</option>
+        </select>
+      </div>
+      <div class="modal-actions">
+        <button (click)="closeAddExerciseModal()" class="btn-secondary">Cancel</button>
+        <button (click)="addExerciseToSession()" class="btn-primary">Add Exercise</button>
+      </div>
+    </div>
+  </div>
+</div>

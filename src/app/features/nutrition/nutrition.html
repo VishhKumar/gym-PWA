@@ -1,0 +1,154 @@
+<div class="nutrition-container" *ngIf="dailyLog() as log">
+  <header class="header">
+    <div>
+      <h1 class="title">Nutrition & Macro Tracker</h1>
+      <p class="subtitle">Date: {{ log.date }}</p>
+    </div>
+    <button (click)="openAddMealModal()" class="btn-primary">+ Log Meal</button>
+  </header>
+
+  <!-- Calorie & Water Target Summary -->
+  <div class="summary-cards" *ngIf="macroTargets() as targets">
+    <div class="card summary-card">
+      <div class="summary-header">
+        <span>Calories Consumed</span>
+        <span><strong>{{ log.totalCalories }}</strong> / {{ targets.dailyCalories }} kcal</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill calories-fill" [style.width.%]="(log.totalCalories / targets.dailyCalories) * 100"></div>
+      </div>
+    </div>
+
+    <div class="card summary-card">
+      <div class="summary-header">
+        <span>Hydration Tracker</span>
+        <span><strong>{{ log.waterMl }}</strong> / 3000 ml</span>
+      </div>
+      <div class="water-controls mt-2">
+        <button (click)="addWater(250)" class="btn-water">+250 ml</button>
+        <button (click)="addWater(500)" class="btn-water">+500 ml</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Log Meal Form Card -->
+  <div class="card form-card mt-4">
+    <h3 class="card-title">Quick Log Meal</h3>
+    <form (ngSubmit)="submitMeal()" class="meal-form">
+      <div class="form-row">
+        <div class="field">
+          <label>Category</label>
+          <select [(ngModel)]="mealCategory" name="mealCategory" class="select-input">
+            <option value="breakfast">Breakfast</option>
+            <option value="lunch">Lunch</option>
+            <option value="dinner">Dinner</option>
+            <option value="snack">Snack</option>
+          </select>
+        </div>
+
+        <div class="field flex-grow">
+          <label>Food Item / Meal Name</label>
+          <input type="text" [(ngModel)]="foodName" name="foodName" placeholder="e.g., Grilled Chicken & Rice" required class="text-input" />
+        </div>
+      </div>
+
+      <div class="form-row macros-row mt-2">
+        <div class="field">
+          <label>Calories (kcal)</label>
+          <input type="number" [(ngModel)]="calories" name="calories" class="num-input" placeholder="0" />
+        </div>
+        <div class="field">
+          <label>Protein (g)</label>
+          <input type="number" [(ngModel)]="proteinGrams" name="proteinGrams" class="num-input" placeholder="0" />
+        </div>
+        <div class="field">
+          <label>Carbs (g)</label>
+          <input type="number" [(ngModel)]="carbsGrams" name="carbsGrams" class="num-input" placeholder="0" />
+        </div>
+        <div class="field">
+          <label>Fats (g)</label>
+          <input type="number" [(ngModel)]="fatsGrams" name="fatsGrams" class="num-input" placeholder="0" />
+        </div>
+      </div>
+
+      <button 
+        type="submit" 
+        class="btn-primary mt-4" 
+        [disabled]="isFormInvalid">
+        Add Meal Entry
+      </button>
+    </form>
+  </div>
+
+  <!-- Logged Meals List -->
+  <div class="meals-list mt-4">
+    <h3 class="section-title">Today's Meals</h3>
+    <div *ngIf="log.meals.length === 0" class="empty-state">No meals logged for today yet.</div>
+    
+    <div *ngFor="let meal of log.meals" class="card meal-item">
+      <div class="meal-main">
+        <span class="category-badge">{{ meal.category | uppercase }}</span>
+        <span class="meal-name">{{ meal.name }}</span>
+      </div>
+      
+      <div class="meal-right">
+        <div class="meal-macros">
+          <span>{{ meal.calories }} kcal</span>
+          <small>P: {{ meal.proteinGrams }}g | C: {{ meal.carbsGrams }}g | F: {{ meal.fatsGrams }}g</small>
+        </div>
+        <button (click)="deleteMeal(meal.id)" class="btn-delete" title="Delete Meal">✕</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Meal Modal Overlay -->
+  <div *ngIf="showAddMealModal()" class="modal-backdrop">
+    <div class="modal-card">
+      <h2>Log New Meal</h2>
+      
+      <div class="form-group">
+        <label>Meal Category</label>
+        <select [(ngModel)]="mealCategory" class="select-input">
+          <option value="breakfast">Breakfast</option>
+          <option value="lunch">Lunch</option>
+          <option value="dinner">Dinner</option>
+          <option value="snack">Snack</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Meal / Food Name</label>
+        <input type="text" [(ngModel)]="foodName" placeholder="e.g. Protein Smoothie" class="text-input" />
+      </div>
+
+      <div class="grid-2x2">
+        <div class="form-group">
+          <label>Calories (kcal)</label>
+          <input type="number" [(ngModel)]="calories" class="num-input-full" placeholder="0" />
+        </div>
+        <div class="form-group">
+          <label>Protein (g)</label>
+          <input type="number" [(ngModel)]="proteinGrams" class="num-input-full" placeholder="0" />
+        </div>
+        <div class="form-group">
+          <label>Carbs (g)</label>
+          <input type="number" [(ngModel)]="carbsGrams" class="num-input-full" placeholder="0" />
+        </div>
+        <div class="form-group">
+          <label>Fats (g)</label>
+          <input type="number" [(ngModel)]="fatsGrams" class="num-input-full" placeholder="0" />
+        </div>
+      </div>
+
+      <div class="modal-actions mt-4">
+        <button (click)="closeAddMealModal()" class="btn-secondary">Cancel</button>
+        <button 
+          (click)="submitMeal()" 
+          class="btn-primary" 
+          [disabled]="isFormInvalid">
+          Save Meal
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

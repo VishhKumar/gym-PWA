@@ -1,0 +1,68 @@
+<div class="membership-container">
+  <header class="header">
+    <h1 class="title">Membership Plans & Tier</h1>
+    <p class="subtitle">Manage your subscription and unlock exclusive gym perks</p>
+  </header>
+
+  <!-- Active Plan Banner -->
+  <div class="card active-banner" *ngIf="membership() as plan">
+    <div class="banner-info">
+      <span class="badge-tier">{{ plan.tier | uppercase }} ACCESS</span>
+      <h2>Current Membership: {{ plan.tier }} Plan</h2>
+      <p class="expiry">Valid through: <strong>{{ plan.expiryDate }}</strong></p>
+    </div>
+    <div class="banner-status">
+      <span class="status-indicator active">● {{ plan.status | uppercase }}</span>
+    </div>
+  </div>
+
+  <!-- Plan Tiers Grid -->
+  <h3 class="section-title mt-4">Available Tiers</h3>
+  <div class="plans-grid">
+    <!-- Basic Tier -->
+    <div class="card plan-card" [class.selected]="membership().tier === 'Basic'">
+      <h3 class="plan-name">Basic Pass</h3>
+      <p class="price">$29 <span>/ mo</span></p>
+      <ul class="features">
+        <li>✔ Standard Gym Floor Access</li>
+        <li>✔ Digital Turnstile Check-In</li>
+        <li>✖ Locker & Sauna Access</li>
+        <li>✖ Guest Passes</li>
+      </ul>
+      <button (click)="selectPlan('Basic')" [disabled]="membership().tier === 'Basic'" class="btn-tier">
+        {{ membership().tier === 'Basic' ? 'Current Plan' : 'Switch to Basic' }}
+      </button>
+    </div>
+
+    <!-- Pro Tier -->
+    <div class="card plan-card featured" [class.selected]="membership().tier === 'Pro'">
+      <div class="popular-badge">MOST POPULAR</div>
+      <h3 class="plan-name">Pro Athlete</h3>
+      <p class="price">$49 <span>/ mo</span></p>
+      <ul class="features">
+        <li>✔ All Basic Features</li>
+        <li>✔ Unlimited Rest & Macro Tracking</li>
+        <li>✔ Locker Room & Sauna Access</li>
+        <li>✖ Guest Passes</li>
+      </ul>
+      <button (click)="selectPlan('Pro')" [disabled]="membership().tier === 'Pro'" class="btn-tier">
+        {{ membership().tier === 'Pro' ? 'Current Plan' : 'Upgrade to Pro' }}
+      </button>
+    </div>
+
+    <!-- Elite Tier -->
+    <div class="card plan-card" [class.selected]="membership().tier === 'Elite'">
+      <h3 class="plan-name">Elite All-Access</h3>
+      <p class="price">$79 <span>/ mo</span></p>
+      <ul class="features">
+        <li>✔ All Pro Features</li>
+        <li>✔ 2 Monthly Guest Passes</li>
+        <li>✔ Free Hydro-Massage Sessions</li>
+        <li>✔ Dedicated Lockers</li>
+      </ul>
+      <button (click)="selectPlan('Elite')" [disabled]="membership().tier === 'Elite'" class="btn-tier">
+        {{ membership().tier === 'Elite' ? 'Current Plan' : 'Upgrade to Elite' }}
+      </button>
+    </div>
+  </div>
+</div>

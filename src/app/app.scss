@@ -1,0 +1,130 @@
+/* Reset & Base Header styling */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: #0d1322;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.nav-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0.875rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Brand Logo */
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #3b82f6;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  .logo-icon {
+    font-size: 1.5rem;
+  }
+
+  .brand-name {
+    color: #ffffff;
+    letter-spacing: -0.02em;
+  }
+}
+
+/* Desktop Navigation Menu */
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
+  .nav-item {
+    text-decoration: none;
+    color: #94a3b8;
+    font-weight: 500;
+    font-size: 0.925rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+
+    &:hover {
+      color: #ffffff;
+      background-color: rgba(255, 255, 255, 0.06);
+    }
+
+    &.active {
+      color: #ffffff;
+      background-color: #2563eb;
+      font-weight: 600;
+      box-shadow: 0 2px 10px rgba(37, 99, 235, 0.4);
+    }
+  }
+}
+
+/* Mobile Hamburger Button */
+.mobile-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 28px;
+  height: 20px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+
+  .hamburger-bar {
+    width: 100%;
+    height: 3px;
+    background-color: #f8fafc;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+}
+
+.main-layout {
+  min-height: calc(100vh - 70px);
+  background-color: #0b0f19;
+  color: #f8fafc;
+}
+
+/* Responsive Breakpoint: Mobile & Tablet */
+@media (max-width: 768px) {
+  .mobile-toggle {
+    display: flex;
+  }
+
+  .nav-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #0d1322;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.25rem;
+    padding: 1rem 1.5rem;
+    display: none;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+
+    &.mobile-open {
+      display: flex;
+    }
+
+    .nav-item {
+      padding: 0.75rem 1rem;
+      font-size: 1rem;
+    }
+  }
+}

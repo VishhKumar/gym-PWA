@@ -1,0 +1,225 @@
+.workout-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+
+  .title {
+    font-size: 1.85rem;
+    font-weight: 800;
+  }
+
+  .subtitle {
+    color: #94a3b8;
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+  }
+}
+
+.routines-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+
+.card {
+  background-color: #1e293b;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  padding: 1.25rem;
+}
+
+.routine-card {
+  h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+  }
+
+  .muscle-group {
+    color: #94a3b8;
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+  }
+}
+
+.active-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+
+  .header-actions {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .badge {
+    background-color: rgba(59, 130, 246, 0.2);
+    color: #3b82f6;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-top: 0.5rem;
+    display: inline-block;
+  }
+}
+
+.timer-banner {
+  background-color: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  padding: 0.875rem 1.25rem;
+  border-radius: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+
+  .timer-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #10b981;
+    font-size: 0.9rem;
+  }
+
+  .btn-dismiss {
+    background: transparent;
+    border: 1px solid rgba(16, 185, 129, 0.4);
+    color: #10b981;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.375rem;
+    cursor: pointer;
+  }
+}
+
+.exercise-card {
+  margin-bottom: 1.25rem;
+
+  .exercise-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .exercise-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+
+    small {
+      color: #94a3b8;
+      font-weight: 400;
+    }
+  }
+}
+
+.sets-table {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  .table-header, .table-row {
+    display: grid;
+    grid-template-columns: 60px 1fr 1fr 120px;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .table-header {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    font-weight: 700;
+    padding-bottom: 0.25rem;
+  }
+
+  .num-input {
+    background-color: #0f172a;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    padding: 0.4rem 0.6rem;
+    border-radius: 0.375rem;
+    width: 100%;
+  }
+
+  .btn-check {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    border: none;
+    padding: 0.4rem;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 600;
+
+    &.completed {
+      background-color: #10b981;
+      color: #ffffff;
+    }
+  }
+}
+
+/* Modals */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-card {
+  background-color: #1e293b;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1.75rem;
+  border-radius: 0.75rem;
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+
+  h2 {
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    label {
+      font-size: 0.85rem;
+      color: #94a3b8;
+    }
+
+    .text-input, .select-input {
+      background-color: #0f172a;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      padding: 0.6rem 0.8rem;
+      border-radius: 0.375rem;
+    }
+  }
+
+  .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+  }
+}
+
+.btn-primary { background: #2563eb; color: #fff; border: none; padding: 0.5rem 1rem; border-radius: 0.375rem; cursor: pointer; }
+.btn-secondary { background: rgba(255, 255, 255, 0.1); color: #fff; border: none; padding: 0.5rem 1rem; border-radius: 0.375rem; cursor: pointer; }
+.btn-accent { background: #10b981; color: #fff; border: none; padding: 0.5rem 1rem; border-radius: 0.375rem; cursor: pointer; }
+.btn-link { background: transparent; border: none; color: #3b82f6; cursor: pointer; font-size: 0.85rem; }
+.mt-4 { margin-top: 1rem; }

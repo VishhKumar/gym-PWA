@@ -1,0 +1,71 @@
+<div class="onboarding-container">
+  <div class="card onboarding-card">
+    <div class="header">
+      <h2 class="title">Welcome to Bodycraft</h2>
+      <p class="subtitle">Configure your personal fitness & diet profile</p>
+    </div>
+
+    <form [formGroup]="onboardingForm" (ngSubmit)="onSubmit()" class="form-grid">
+      <!-- Full Name -->
+      <div class="form-group">
+        <label for="name">Full Name</label>
+        <input id="name" type="text" formControlName="name" placeholder="Enter your name" class="input-field" />
+      </div>
+
+      <!-- Gender & Age -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="gender">Gender</label>
+          <select id="gender" formControlName="gender" class="input-field">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="age">Age</label>
+          <input id="age" type="number" formControlName="age" class="input-field" />
+        </div>
+      </div>
+
+      <!-- Height & Weight -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="heightCm">Height (cm)</label>
+          <input id="heightCm" type="number" formControlName="heightCm" class="input-field" />
+        </div>
+
+        <div class="form-group">
+          <label for="weightKg">Weight (kg)</label>
+          <input id="weightKg" type="number" formControlName="weightKg" class="input-field" />
+        </div>
+      </div>
+
+      <!-- Fitness Goal -->
+      <div class="form-group">
+        <label for="goal">Primary Fitness Goal</label>
+        <select id="goal" formControlName="goal" class="input-field">
+          <option value="weight_loss">Fat Loss / Cutting (Caloric Deficit)</option>
+          <option value="muscle_gain">Muscle Gain / Bulking (Caloric Surplus)</option>
+          <option value="recomposition">Body Recomposition (Maintenance + High Protein)</option>
+        </select>
+      </div>
+
+      <!-- Activity Level -->
+      <div class="form-group">
+        <label for="activityLevel">Daily Activity Level</label>
+        <select id="activityLevel" formControlName="activityLevel" class="input-field">
+          <option value="sedentary">Sedentary (Desk Job)</option>
+          <option value="light">Light Activity (1-2 days/wk)</option>
+          <option value="moderate">Moderate Activity (3-5 days/wk)</option>
+          <option value="active">Active (6-7 days/wk)</option>
+        </select>
+      </div>
+
+      <button type="submit" [disabled]="onboardingForm.invalid" class="btn-primary w-full mt-4">
+        Calculate Macros & Save Profile
+      </button>
+    </form>
+  </div>
+</div>

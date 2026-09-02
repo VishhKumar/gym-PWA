@@ -1,0 +1,102 @@
+.membership-container {
+  max-width: 950px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+.header {
+  margin-bottom: 2rem;
+  .title { font-size: 1.85rem; font-weight: 800; color: var(--primary); }
+  .subtitle { color: var(--text-muted); font-size: 0.9rem; margin-top: 0.25rem; }
+}
+
+.active-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-left: 5px solid var(--primary);
+  padding: 1.5rem;
+  background: linear-gradient(135deg, var(--bg-card), #1e293b);
+}
+
+.badge-tier {
+  background-color: var(--primary);
+  color: #000;
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+}
+
+.banner-info h2 { font-size: 1.3rem; margin: 0.5rem 0 0.25rem 0; }
+.expiry { color: var(--text-muted); font-size: 0.85rem; }
+
+.status-indicator.active {
+  color: #4ade80;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.section-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem; }
+
+.plans-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.plan-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.75rem;
+
+  &.selected { border: 2px solid var(--primary); }
+  &.featured { border: 2px solid var(--accent); }
+}
+
+.popular-badge {
+  position: absolute;
+  top: -12px;
+  right: 15px;
+  background-color: var(--accent);
+  color: #0f172a;
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 0.2rem 0.6rem;
+  border-radius: 9999px;
+}
+
+.plan-name { font-size: 1.2rem; font-weight: 700; }
+.price { font-size: 2rem; font-weight: 800; color: var(--primary); margin: 0.5rem 0 1rem 0; span { font-size: 0.9rem; color: var(--text-muted); font-weight: 400; } }
+
+.features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  font-size: 0.85rem;
+  color: var(--text-main);
+}
+
+.btn-tier {
+  width: 100%;
+  padding: 0.65rem;
+  border-radius: var(--radius-sm);
+  background-color: var(--primary);
+  color: #000;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+
+  &:disabled {
+    background-color: var(--bg-card-border);
+    color: var(--text-muted);
+    cursor: not-allowed;
+  }
+}
+
+.mt-4 { margin-top: 1.5rem; }

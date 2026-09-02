@@ -1,0 +1,37 @@
+<div class="checkin-container">
+  <header class="header">
+    <h1 class="title">Digital Membership Pass</h1>
+    <p class="subtitle">Scan your QR code at the turnstile to check in</p>
+  </header>
+
+  <div class="pass-card card">
+    <div class="card-top">
+      <span class="brand">BODYCRAFT HQ</span>
+      <span class="status-badge">ACTIVE MEMBER</span>
+    </div>
+
+    <div class="qr-wrapper">
+      <img *ngIf="qrDataUrl()" [src]="qrDataUrl()" alt="Member QR Pass" class="qr-code" />
+    </div>
+
+    <div class="member-details" *ngIf="userProfile() as profile">
+      <h2 class="member-name">{{ profile.name }}</h2>
+      <p class="member-id">ID: BC-88942</p>
+    </div>
+
+    <button (click)="simulateScan()" class="btn-primary mt-4">Simulate Turnstile Scan</button>
+  </div>
+
+  <!-- Check-In Log -->
+  <div class="history-section mt-4">
+    <h3 class="section-title">Recent Gym Visits</h3>
+    <div *ngIf="checkInHistory().length === 0" class="empty-state">No recorded visits yet.</div>
+    <div *ngFor="let record of checkInHistory()" class="card history-item">
+      <div>
+        <strong>Check-in Successful</strong>
+        <p class="timestamp">{{ record.timestamp | date:'medium' }}</p>
+      </div>
+      <span class="badge-success">APPROVED</span>
+    </div>
+  </div>
+</div>

@@ -1,12 +1,31 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, OnInit, inject, signal } from '@angular/core';
+import { BodycraftDatabase } from './core/services/db.service';
+import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  standalone: true,
+  imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.scss'
 })
-export class App {
-  protected readonly title = signal('bodycraft-pwa');
+export class App implements OnInit {
+  private db = inject(BodycraftDatabase);
+
+  // Mobile menu open/close toggle
+  isMobileMenuOpen = signal<boolean>(false);
+
+  async ngOnInit() {
+    const count = await this.db.workoutSessions.count();
+    console.log('Bodycraft Fitness Club DB Initialized. Current logged workouts:', count);
+  }
+
+  toggleMobileMenu() {
+    this.isMobileMenuOpen.update(prev => !prev);
+  }
+
+  closeMobileMenu() {
+    this.isMobileMenuOpen.set(false);
+  }
 }
